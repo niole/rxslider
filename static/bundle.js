@@ -62,7 +62,15 @@
 	    return console.log('start');
 	  })();
 
-	  var ArrFuncs = {
+	  var t = [];
+
+	  var stuff = function stuff(x) {
+	    return x * 2;
+	  };
+
+	  var A = [1, 2];
+
+	  var niole = {
 	    forEach: function forEach(A, action) {
 	      for (var i = 0; i < A.length; i++) {
 	        action(A[i]);
@@ -70,9 +78,21 @@
 	    }
 	  };
 
-	  ArrFuncs.forEach([1, 2, 3], function (x) {
-	    console.log(2 * x);
+	  var toRandom = function toRandom(n) {
+	    console.log('rand');
+
+	    console.log(Math.random());
+	  };
+
+	  niole.forEach([1, 2, 3], function (x) {
+	    console.log('each');
+
+	    t.push(2 * x);
 	  });
+
+	  console.log(t);
+
+	  niole.forEach([1, 2, 3], toRandom);
 	});
 
 /***/ },

@@ -3,18 +3,11 @@
 const $ = require('jquery');
 
 $(document).ready(() => {
-  (() => console.log('start'))()
-
- let ArrFuncs = {
+ let niole = {
     forEach: (A, action) => {
       for (let i=0; i<A.length; i++) {
         action(A[i]);
       }
   }
  };
-
- ArrFuncs.forEach([1,2,3], (x) => {
-   console.log(2*x);
- });
-
 });
