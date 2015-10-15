@@ -61,6 +61,18 @@
 	  (function () {
 	    return console.log('start');
 	  })();
+
+	  var ArrFuncs = {
+	    forEach: function forEach(A, action) {
+	      for (var i = 0; i < A.length; i++) {
+	        action(A[i]);
+	      }
+	    }
+	  };
+
+	  ArrFuncs.forEach([1, 2, 3], function (x) {
+	    console.log(2 * x);
+	  });
 	});
 
 /***/ },
