@@ -8,6 +8,13 @@ $(document).ready(() => {
       for (let i=0; i<A.length; i++) {
         action(A[i]);
       }
+  },
+  map: (A, action) => {
+    let res = [];
+    for (let i=0; i<A.length; i++) {
+      res.push(action(A[i]));
+    }
+    return res;
   }
  };
 });

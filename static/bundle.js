@@ -58,41 +58,24 @@
 	var $ = __webpack_require__(2);
 
 	$(document).ready(function () {
-	  (function () {
-	    return console.log('start');
-	  })();
-
-	  var t = [];
-
-	  var stuff = function stuff(x) {
-	    return x * 2;
-	  };
-
-	  var A = [1, 2];
-
 	  var niole = {
 	    forEach: function forEach(A, action) {
 	      for (var i = 0; i < A.length; i++) {
 	        action(A[i]);
 	      }
+	    },
+	    map: function map(A, action) {
+	      var res = [];
+	      for (var i = 0; i < A.length; i++) {
+	        res.push(action(A[i]));
+	      }
+	      return res;
 	    }
 	  };
-
-	  var toRandom = function toRandom(n) {
-	    console.log('rand');
-
-	    console.log(Math.random());
+	  var mult = function mult(x) {
+	    return 2 * x;
 	  };
-
-	  niole.forEach([1, 2, 3], function (x) {
-	    console.log('each');
-
-	    t.push(2 * x);
-	  });
-
-	  console.log(t);
-
-	  niole.forEach([1, 2, 3], toRandom);
+	  console.log(niole.map([1, 2, 3], mult));
 	});
 
 /***/ },
