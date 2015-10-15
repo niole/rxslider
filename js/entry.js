@@ -1,4 +1,7 @@
 //var Person = require("babel!./Person.js").default;
 //new Person();
+const $ = require('jquery');
 
-(() => console.log('start'))()
+$(document).ready(() => {
+  (() => console.log('start'))()
+});
