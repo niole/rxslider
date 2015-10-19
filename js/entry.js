@@ -3,18 +3,28 @@
 const $ = require('jquery');
 
 $(document).ready(() => {
- let niole = {
-    forEach: (A, action) => {
-      for (let i=0; i<A.length; i++) {
-        action(A[i]);
+
+  class Dash {
+
+      constructor(data) {
+          this.data = data;
       }
-  },
-  map: (A, action) => {
-    let res = [];
-    for (let i=0; i<A.length; i++) {
-      res.push(action(A[i]));
-    }
-    return res;
+
+      forEach(A, action) {
+        for (let i=0; i<A.length; i++) {
+          action(A[i]);
+        }
+      }
+
+      map(A, action) {
+        let res = [];
+        for (let i=0; i<A.length; i++) {
+          res.push(action(A[i]));
+        }
+        return res;
+      }
   }
- };
+
+  let d = new Dash([1,2,3]);
+  let result = d.map(d.data, (D) => { return D+5; });
 });

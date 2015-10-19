@@ -55,27 +55,64 @@
 	//new Person();
 	'use strict';
 
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
 	var $ = __webpack_require__(2);
 
 	$(document).ready(function () {
-	  var niole = {
-	    forEach: function forEach(A, action) {
-	      for (var i = 0; i < A.length; i++) {
-	        action(A[i]);
-	      }
-	    },
-	    map: function map(A, action) {
-	      var res = [];
-	      for (var i = 0; i < A.length; i++) {
-	        res.push(action(A[i]));
-	      }
-	      return res;
+	  // let niole = {
+	  //    forEach: (A, action) => {
+	  //      for (let i=0; i<A.length; i++) {
+	  //        action(A[i]);
+	  //      }
+	  //  },
+	  //  map: (A, action) => {
+	  //    let res = [];
+	  //    for (let i=0; i<A.length; i++) {
+	  //      console.log(action);
+	  //      res.push(action(A[i]));
+	  //    }
+	  //    res;
+	  //  }
+	  // };
+
+	  var Dash = (function () {
+	    function Dash(data) {
+	      _classCallCheck(this, Dash);
+
+	      this.data = data;
 	    }
-	  };
-	  var mult = function mult(x) {
-	    return 2 * x;
-	  };
-	  console.log(niole.map([1, 2, 3], mult));
+
+	    _createClass(Dash, [{
+	      key: 'forEach',
+	      value: function forEach(A, action) {
+	        for (var i = 0; i < A.length; i++) {
+	          action(A[i]);
+	        }
+	      }
+	    }, {
+	      key: 'map',
+	      value: function map(A, action) {
+	        var res = [];
+	        for (var i = 0; i < A.length; i++) {
+	          res.push(action(A[i]));
+	        }
+	        return res;
+	      }
+	    }]);
+
+	    return Dash;
+	  })();
+
+	  var d = new Dash([1, 2, 3]);
+	  console.log(d.data);
+	  var result = d.map(d.data, function (D) {
+	    return D + 5;
+	  });
+
+	  console.log(result);
 	});
 
 /***/ },
