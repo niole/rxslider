@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "NODE_ENV=development node ./app.js",
     "dev": "webpack-dev-server --devtool eval --progress --colors --content-base build"
   },
   "author": "",
@@ -12,6 +13,8 @@
     "commonjs": "0.0.1",
     "express": "^4.13.3",
     "jquery": "^2.1.4",
+    "react": "^0.14.0-rc1",
+    "react-dom": "^0.14.0-rc1",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.12.0"
   },

@@ -1,30 +1,39 @@
 //var Person = require("babel!./Person.js").default;
 //new Person();
 const $ = require('jquery');
+const React = require('react');
+let ReactDOM;
+try {
+  ReactDOM = require('react-dom');
+} catch(e) {
+  ReactDOM = React;
+}
 
-$(document).ready(() => {
-
-  class Dash {
-
-      constructor(data) {
-          this.data = data;
-      }
-
-      forEach(A, action) {
-        for (let i=0; i<A.length; i++) {
-          action(A[i]);
-        }
-      }
-
-      map(A, action) {
-        let res = [];
-        for (let i=0; i<A.length; i++) {
-          res.push(action(A[i]));
-        }
-        return res;
-      }
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {count: props.init};
   }
+  tick() {
+    this.setState({count: this.state.count + 1});
+  }
+  render() {
+    return (
+      <div onClick={this.tick.bind(this)}>
+        Clicks: {this.state.count}
+      </div>
+    );
+  }
+}
+Counter.propTypes = { init: React.PropTypes.number };
 
-  let d = new Dash([1,2,3]);
-  let result = d.map(d.data, (D) => { return D+5; });
-});
+class App extends React.Component {
+  render() {
+    return <Counter init={this.props.init}/>;
+  }
+}
+
+App.defaultProps = { init: 0 };
+
+
+ReactDOM.render(<App/>, document.body);
