@@ -1,5 +1,6 @@
 const $ = require('jquery');
 const React = require('react');
+const Rx = require('rx');
 let ReactDOM;
 try {
   ReactDOM = require('react-dom');

@@ -17,14 +17,16 @@ var compiler = webpack({
   resolve: {
     alias: {
       '$': node_mods + '/jquery/dist/jquery.min.js',
-      'react': node_mods + '/react/dist/react.js',
-      'react-dom': node_mods + "react-dom/dist/react-dom.js"
+      'react': node_mods + '/react/dist/react.min.js',
+      'rx': node_mods + '/rx/dist/rx.all.min.js',
+      'react-dom': node_mods + "react-dom/dist/react-dom.min.js"
     }
   },
   module: {
     noParse: [node_mods + '/jquery/dist/jquery.min.js',
-              node_mods + '/react/dist/react.js',
-              node_mods + "react-dom/dist/react-dom.js"],
+              node_mods + '/react/dist/react.min.js',
+              node_mods + '/rx/dist/rx.all.min.js',
+              node_mods + "react-dom/dist/react-dom.min.js"],
     loaders: [
       { test: /\.js$/, exclude: node_mods, loader: "babel-loader"}
     ]
