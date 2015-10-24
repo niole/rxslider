@@ -134,11 +134,22 @@
 	      this.setState({ count: this.state.count + 1 });
 	    }
 	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this = this;
+
+	      var counter = document.getElementById('counter');
+	      var source = Rx.Observable.fromEvent(counter, 'click');
+	      source.subscribe(function (e) {
+	        _this.tick();
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return React.createElement(
 	        'div',
-	        { onClick: this.tick.bind(this) },
+	        { id: 'counter' },
 	        'Clicks: ',
 	        this.state.count
 	      );

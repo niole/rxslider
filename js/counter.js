@@ -16,9 +16,16 @@ class Counter extends React.Component {
   tick() {
     this.setState({count: this.state.count + 1});
   }
+  componentDidMount() {
+    const counter = document.getElementById('counter');
+    const source = Rx.Observable.fromEvent(counter, 'click');
+    source.subscribe(e => {
+      this.tick();
+    });
+  }
   render() {
     return (
-      <div onClick={this.tick.bind(this)}>
+      <div id="counter">
         Clicks: {this.state.count}
       </div>
     );
