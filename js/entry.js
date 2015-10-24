@@ -1,4 +1,5 @@
 const Counter = require('./counter');
+const Slider = require('./slider');
 const $ = require('jquery');
 const React = require('react');
 let ReactDOM;
@@ -10,7 +11,7 @@ try {
 
 class App extends React.Component {
   render() {
-    return <Counter init={this.props.init}/>;
+    return <Slider/>;
   }
 }
 
