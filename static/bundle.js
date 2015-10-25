@@ -63,6 +63,7 @@
 
 	var Counter = __webpack_require__(2);
 	var Slider = __webpack_require__(6);
+	var SliderUtils = __webpack_require__(7);
 	var $ = __webpack_require__(3);
 	var React = __webpack_require__(4);
 	var ReactDOM = undefined;
@@ -71,6 +72,8 @@
 	} catch (e) {
 	  ReactDOM = React;
 	}
+
+	SliderUtils.works();
 
 	var App = (function (_React$Component) {
 	  _inherits(App, _React$Component);
@@ -9462,6 +9465,24 @@
 	Slider.defaultProps = { range: 10, width: 600, height: 5 };
 
 	module.exports = Slider;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(3);
+	var React = __webpack_require__(4);
+	var Rx = __webpack_require__(5);
+
+	var SliderUtils = {
+	  works: function works() {
+	    console.log('works');
+	  }
+	};
+
+	module.exports = SliderUtils;
 
 /***/ }
 /******/ ]);

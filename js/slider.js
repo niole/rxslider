@@ -8,6 +8,7 @@ class Slider extends React.Component {
     this.state = {currPosHandle: 0};
   }
   componentDidMount() {
+
   }
   render() {
     let {range, width, height} = this.props;

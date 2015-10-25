@@ -1,5 +1,6 @@
 const Counter = require('./counter');
 const Slider = require('./slider');
+const SliderUtils = require('./sliderutils');
 const $ = require('jquery');
 const React = require('react');
 let ReactDOM;
@@ -8,6 +9,8 @@ try {
 } catch(e) {
   ReactDOM = React;
 }
+
+SliderUtils.works();
 
 class App extends React.Component {
   render() {
