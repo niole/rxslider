@@ -65,6 +65,7 @@
 	var Slider = __webpack_require__(6);
 	var SliderUtils = __webpack_require__(7);
 	var $ = __webpack_require__(3);
+	var Rx = __webpack_require__(5);
 	var React = __webpack_require__(4);
 	var ReactDOM = undefined;
 	try {
@@ -73,18 +74,30 @@
 	  ReactDOM = React;
 	}
 
-	SliderUtils.works();
-
 	var App = (function (_React$Component) {
 	  _inherits(App, _React$Component);
 
-	  function App() {
+	  function App(props) {
 	    _classCallCheck(this, App);
 
-	    _get(Object.getPrototypeOf(App.prototype), 'constructor', this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(App.prototype), 'constructor', this).call(this, props);
+	    this.state = { currPosHandle: 0 };
 	  }
 
 	  _createClass(App, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var mouseDown = Rx.Observable.fromEvent(document, 'mousedown');
+	      var mouseMove = Rx.Observable.fromEvent(document, 'mousemove');
+	      var mouseUp = Rx.Observable.fromEvent(document, 'mouseup');
+	      var mouseDrag = mouseDown.selectMany(function () {
+	        return mouseMove.takeUntil(mouseUp);
+	      });
+	      mouseDrag.subscribe(function (e) {
+	        console.log(e);
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return React.createElement(Slider, null);
@@ -9477,8 +9490,36 @@
 	var Rx = __webpack_require__(5);
 
 	var SliderUtils = {
-	  works: function works() {
-	    console.log('works');
+	  pxToInd: function pxToInd(pxperind, relativemousex) {
+	    /*
+	      returns index of data closest to mouse position
+	    */
+	    return Math.round(relativemousex / pxperind);
+	  },
+	  indToPx: function indToPx(pxperind, ind, marginleft) {
+	    /*
+	      pxperind - number of px per data point
+	      ind - index of data point
+	      marginleft - px dist from left side of window to left side of slider
+	      **converts data index to position relative to window
+	    */
+	    return marginleft + pxperind * (ind + 1);
+	  },
+	  pxPerInd: function pxPerInd(widthslider, totalpts) {
+	    /*
+	     widthslider - width slider in px
+	     totalpts - total number of data points
+	     returns ratio of px to data point
+	    */
+	    return widthslider / totalpts;
+	  },
+	  relativeMouseX: function relativeMouseX(mousex, marginleft) {
+	    /*
+	      mousex - px value of mouse position relative to window
+	      marginleft - px dist from left side of window to left side of slider
+	      **converts px value of mouse position to be relative to slider
+	    */
+	    return mousex - marginleft;
 	  }
 	};
 
