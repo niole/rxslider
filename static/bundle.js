@@ -9448,11 +9448,13 @@
 	  _createClass(Slider, [{
 	    key: 'showHandle',
 	    value: function showHandle(ml, data, range, width, height, px) {
-	      var value = this.utils.pxToInd(this.utils.pxPerInd(width, range), this.utils.relativeMouseX(px, ml));
-	      return React.createElement(Handle, {
-	        px: px,
-	        value: value
-	      });
+	      if (px <= ml + width && px >= ml) {
+	        var value = this.utils.pxToInd(this.utils.pxPerInd(width, range), this.utils.relativeMouseX(px, ml));
+	        return React.createElement(Handle, {
+	          px: px,
+	          value: value
+	        });
+	      }
 	    }
 	  }, {
 	    key: 'componentDidMount',
@@ -9576,8 +9578,6 @@
 	  _createClass(Handle, [{
 	    key: 'drawHandle',
 	    value: function drawHandle(px, value) {
-	      console.log(value);
-	      console.log(px);
 	      var handleStyle = { width: 10, height: 10, left: px, position: "absolute" };
 	      return React.createElement(
 	        'div',

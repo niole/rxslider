@@ -12,12 +12,14 @@ class Slider extends React.Component {
   }
 
   showHandle(ml, data, range, width, height, px) {
-    let value = this.utils.pxToInd(this.utils.pxPerInd(width, range),
-                                   this.utils.relativeMouseX(px, ml));
-    return <Handle
-             px={px}
-             value={value}
-            />;
+    if (px <= ml+width && px >= ml) {
+      let value = this.utils.pxToInd(this.utils.pxPerInd(width, range),
+                                     this.utils.relativeMouseX(px, ml));
+      return <Handle
+               px={px}
+               value={value}
+              />;
+    }
   }
 
   componentDidMount() {
