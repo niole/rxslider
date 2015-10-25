@@ -9449,7 +9449,6 @@
 	    key: 'showHandle',
 	    value: function showHandle(ml, data, range, width, height, px) {
 	      var value = this.utils.pxToInd(this.utils.pxPerInd(width, range), this.utils.relativeMouseX(px, ml));
-	      console.log(px);
 	      return React.createElement(Handle, {
 	        px: px,
 	        value: value
@@ -9579,6 +9578,12 @@
 	    value: function drawHandle(px, value) {
 	      console.log(value);
 	      console.log(px);
+	      var handleStyle = { width: 10, height: 10, left: px, position: "absolute" };
+	      return React.createElement(
+	        'div',
+	        { style: handleStyle },
+	        value
+	      );
 	    }
 	  }, {
 	    key: 'render',
