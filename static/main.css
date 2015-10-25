@@ -1,0 +1,11 @@
+#slider {
+  background-color: blue;
+}
+
+#handle {
+  width: 10px;
+  height: 10px;
+  background-color: blue;
+  position: absolute;
+  border-radius: 5px;
+}

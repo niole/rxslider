@@ -7,15 +7,15 @@ class Handle extends React.Component {
     super(props);
   }
   drawHandle(px, value) {
-    let handleStyle = {width: 10, height: 10, left: px, position: "absolute"};
-    return <div style={handleStyle}>
+    let handleStyle = {left: px};
+    return <div id="handle" style={handleStyle}>
             {value}
            </div>;
   }
   render() {
     let {px, value} = this.props;
     return (
-      <div id="counter">
+      <div>
         {this.drawHandle(px,value)}
       </div>
     );

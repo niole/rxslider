@@ -33,6 +33,7 @@ class Slider extends React.Component {
   }
 
   componentDidMount() {
+    const slider = document.getElementById("slider");
     const mouseDown = Rx.Observable.fromEvent(document, 'mousedown');
     const mouseMove = Rx.Observable.fromEvent(document, 'mousemove');
     const mouseUp = Rx.Observable.fromEvent(document, 'mouseup');
@@ -45,8 +46,9 @@ class Slider extends React.Component {
   }
   render() {
     let {marginleft, data, width, height} = this.props;
+    let sliderStyle = {width: width, height: height, marginLeft: marginleft};
     return (
-      <div id="counter">
+      <div id="slider" style={sliderStyle}>
         {this.showHandle(marginleft, data,
                          width, height, this.state.pxHandle)}
       </div>

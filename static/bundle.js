@@ -9470,6 +9470,7 @@
 	    value: function componentDidMount() {
 	      var _this = this;
 
+	      var slider = document.getElementById("slider");
 	      var mouseDown = Rx.Observable.fromEvent(document, 'mousedown');
 	      var mouseMove = Rx.Observable.fromEvent(document, 'mousemove');
 	      var mouseUp = Rx.Observable.fromEvent(document, 'mouseup');
@@ -9489,9 +9490,10 @@
 	      var width = _props.width;
 	      var height = _props.height;
 
+	      var sliderStyle = { width: width, height: height, marginLeft: marginleft };
 	      return React.createElement(
 	        'div',
-	        { id: 'counter' },
+	        { id: 'slider', style: sliderStyle },
 	        this.showHandle(marginleft, data, width, height, this.state.pxHandle)
 	      );
 	    }
@@ -9526,8 +9528,6 @@
 	    /*
 	      returns index of data closest to mouse position
 	    */
-	    console.log('index', relativemousex / pxperind);
-	    console.log('rounded index', Math.round(relativemousex / pxperind));
 	    return Math.round(relativemousex / pxperind);
 	  },
 	  indToPx: function indToPx(pxperind, ind, marginleft) {
@@ -9589,10 +9589,10 @@
 	  _createClass(Handle, [{
 	    key: 'drawHandle',
 	    value: function drawHandle(px, value) {
-	      var handleStyle = { width: 10, height: 10, left: px, position: "absolute" };
+	      var handleStyle = { left: px };
 	      return React.createElement(
 	        'div',
-	        { style: handleStyle },
+	        { id: 'handle', style: handleStyle },
 	        value
 	      );
 	    }
@@ -9605,7 +9605,7 @@
 
 	      return React.createElement(
 	        'div',
-	        { id: 'counter' },
+	        null,
 	        this.drawHandle(px, value)
 	      );
 	    }
