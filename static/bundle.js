@@ -9448,13 +9448,24 @@
 	  _createClass(Slider, [{
 	    key: 'showHandle',
 	    value: function showHandle(ml, data, range, width, height, px) {
-	      if (px <= ml + width && px >= ml) {
-	        var value = this.utils.pxToInd(this.utils.pxPerInd(width, range), this.utils.relativeMouseX(px, ml));
-	        return React.createElement(Handle, {
-	          px: px,
-	          value: value
-	        });
+	      var value = undefined;
+	      var pix = undefined;
+	      if (px >= ml + width) {
+	        //value at highest value, px at highest px
+	        value = data[data.length - 1];
+	        pix = ml + width;
+	      } else if (px <= ml) {
+	        //value at lowest value and pos
+	        value = data[0];
+	        pix = ml;
+	      } else {
+	        value = this.utils.pxToInd(this.utils.pxPerInd(width, range), this.utils.relativeMouseX(px, ml));
+	        pix = px;
 	      }
+	      return React.createElement(Handle, {
+	        px: pix,
+	        value: value
+	      });
 	    }
 	  }, {
 	    key: 'componentDidMount',

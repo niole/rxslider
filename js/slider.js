@@ -12,14 +12,26 @@ class Slider extends React.Component {
   }
 
   showHandle(ml, data, range, width, height, px) {
-    if (px <= ml+width && px >= ml) {
-      let value = this.utils.pxToInd(this.utils.pxPerInd(width, range),
-                                     this.utils.relativeMouseX(px, ml));
-      return <Handle
-               px={px}
-               value={value}
-              />;
+    let value;
+    let pix;
+    if (px >= ml+width) {
+      //value at highest value, px at highest px
+      value = data[data.length-1];
+      pix = ml+width;
+    } else if (px <= ml) {
+      //value at lowest value and pos
+      value = data[0];
+      pix = ml;
+    } else {
+      value = this.utils.pxToInd(this.utils.pxPerInd(width, range),
+                                   this.utils.relativeMouseX(px, ml));
+      pix = px;
     }
+    return <Handle
+             px={pix}
+             value={value}
+            />;
+
   }
 
   componentDidMount() {
@@ -37,7 +49,8 @@ class Slider extends React.Component {
     let {marginleft, data, width, height} = this.props;
     return (
       <div id="counter">
-        {this.showHandle(marginleft, data, data.length, width, height, this.state.pxHandle)}
+        {this.showHandle(marginleft, data, data.length,
+                         width, height, this.state.pxHandle)}
       </div>
     );
   }
