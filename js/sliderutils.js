@@ -3,6 +3,9 @@ const React = require('react');
 const Rx = require('rx');
 
 let SliderUtils = {
+  getMouseX(event) {
+    return event.clientX;
+  },
   pxToInd(pxperind, relativemousex) {
     /*
       returns index of data closest to mouse position

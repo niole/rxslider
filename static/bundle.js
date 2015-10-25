@@ -63,7 +63,6 @@
 
 	var Counter = __webpack_require__(2);
 	var Slider = __webpack_require__(6);
-	var SliderUtils = __webpack_require__(7);
 	var $ = __webpack_require__(3);
 	var Rx = __webpack_require__(5);
 	var React = __webpack_require__(4);
@@ -85,22 +84,14 @@
 	  }
 
 	  _createClass(App, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var mouseDown = Rx.Observable.fromEvent(document, 'mousedown');
-	      var mouseMove = Rx.Observable.fromEvent(document, 'mousemove');
-	      var mouseUp = Rx.Observable.fromEvent(document, 'mouseup');
-	      var mouseDrag = mouseDown.selectMany(function () {
-	        return mouseMove.takeUntil(mouseUp);
-	      });
-	      mouseDrag.subscribe(function (e) {
-	        console.log(e);
-	      });
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return React.createElement(Slider, null);
+	      return React.createElement(Slider, {
+	        marginleft: 0,
+	        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+	        width: 600,
+	        height: 5
+	      });
 	    }
 	  }]);
 
@@ -9437,6 +9428,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var SliderUtils = __webpack_require__(7);
+	var Handle = __webpack_require__(8);
 	var $ = __webpack_require__(3);
 	var React = __webpack_require__(4);
 	var Rx = __webpack_require__(5);
@@ -9448,26 +9441,48 @@
 	    _classCallCheck(this, Slider);
 
 	    _get(Object.getPrototypeOf(Slider.prototype), 'constructor', this).call(this, props);
-	    this.state = { currPosHandle: 0 };
+	    this.state = { pxHandle: props.marginleft };
+	    this.utils = SliderUtils;
 	  }
 
 	  _createClass(Slider, [{
+	    key: 'showHandle',
+	    value: function showHandle(ml, data, range, width, height, px) {
+	      var value = this.utils.pxToInd(this.utils.pxPerInd(width, range), this.utils.relativeMouseX(px, ml));
+	      console.log(px);
+	      return React.createElement(Handle, {
+	        px: px,
+	        value: value
+	      });
+	    }
+	  }, {
 	    key: 'componentDidMount',
-	    value: function componentDidMount() {}
+	    value: function componentDidMount() {
+	      var _this = this;
+
+	      var mouseDown = Rx.Observable.fromEvent(document, 'mousedown');
+	      var mouseMove = Rx.Observable.fromEvent(document, 'mousemove');
+	      var mouseUp = Rx.Observable.fromEvent(document, 'mouseup');
+	      var mouseDrag = mouseDown.selectMany(function () {
+	        return mouseMove.takeUntil(mouseUp);
+	      });
+	      mouseDrag.subscribe(function (e) {
+	        _this.setState({ pxHandle: _this.utils.getMouseX(e) });
+	      });
+	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _props = this.props;
-	      var range = _props.range;
+	      var marginleft = _props.marginleft;
+	      var data = _props.data;
 	      var width = _props.width;
 	      var height = _props.height;
 
 	      return React.createElement(
 	        'div',
 	        { id: 'counter' },
-	        range,
-	        width,
-	        height
+	        this.showHandle(marginleft, data, data.length, width, height, this.state.pxHandle)
 	      );
 	    }
 	  }]);
@@ -9475,7 +9490,11 @@
 	  return Slider;
 	})(React.Component);
 
-	Slider.defaultProps = { range: 10, width: 600, height: 5 };
+	Slider.propTypes = { data: React.PropTypes.array,
+	  marginleft: React.PropTypes.number,
+	  range: React.PropTypes.number,
+	  width: React.PropTypes.number,
+	  height: React.PropTypes.number };
 
 	module.exports = Slider;
 
@@ -9490,6 +9509,9 @@
 	var Rx = __webpack_require__(5);
 
 	var SliderUtils = {
+	  getMouseX: function getMouseX(event) {
+	    return event.clientX;
+	  },
 	  pxToInd: function pxToInd(pxperind, relativemousex) {
 	    /*
 	      returns index of data closest to mouse position
@@ -9524,6 +9546,62 @@
 	};
 
 	module.exports = SliderUtils;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var $ = __webpack_require__(3);
+	var React = __webpack_require__(4);
+	var Rx = __webpack_require__(5);
+
+	var Handle = (function (_React$Component) {
+	  _inherits(Handle, _React$Component);
+
+	  function Handle(props) {
+	    _classCallCheck(this, Handle);
+
+	    _get(Object.getPrototypeOf(Handle.prototype), 'constructor', this).call(this, props);
+	  }
+
+	  _createClass(Handle, [{
+	    key: 'drawHandle',
+	    value: function drawHandle(px, value) {
+	      console.log(value);
+	      console.log(px);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var px = _props.px;
+	      var value = _props.value;
+
+	      return React.createElement(
+	        'div',
+	        { id: 'counter' },
+	        this.drawHandle(px, value)
+	      );
+	    }
+	  }]);
+
+	  return Handle;
+	})(React.Component);
+
+	Handle.propTypes = { px: React.PropTypes.number,
+	  value: React.PropTypes.number };
+
+	module.exports = Handle;
 
 /***/ }
 /******/ ]);
