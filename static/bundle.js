@@ -87,7 +87,7 @@
 	    key: 'render',
 	    value: function render() {
 	      return React.createElement(Slider, {
-	        marginleft: 0,
+	        marginleft: 100,
 	        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 	        width: 600,
 	        height: 5
@@ -9447,19 +9447,17 @@
 
 	  _createClass(Slider, [{
 	    key: 'showHandle',
-	    value: function showHandle(ml, data, range, width, height, px) {
+	    value: function showHandle(ml, data, width, height, px) {
 	      var value = undefined;
 	      var pix = undefined;
 	      if (px >= ml + width) {
-	        //value at highest value, px at highest px
 	        value = data[data.length - 1];
 	        pix = ml + width;
 	      } else if (px <= ml) {
-	        //value at lowest value and pos
 	        value = data[0];
 	        pix = ml;
 	      } else {
-	        value = this.utils.pxToInd(this.utils.pxPerInd(width, range), this.utils.relativeMouseX(px, ml));
+	        value = data[this.utils.pxToInd(this.utils.pxPerInd(width, data.length), this.utils.relativeMouseX(px, ml))];
 	        pix = px;
 	      }
 	      return React.createElement(Handle, {
@@ -9494,7 +9492,7 @@
 	      return React.createElement(
 	        'div',
 	        { id: 'counter' },
-	        this.showHandle(marginleft, data, data.length, width, height, this.state.pxHandle)
+	        this.showHandle(marginleft, data, width, height, this.state.pxHandle)
 	      );
 	    }
 	  }]);
@@ -9528,6 +9526,8 @@
 	    /*
 	      returns index of data closest to mouse position
 	    */
+	    console.log('index', relativemousex / pxperind);
+	    console.log('rounded index', Math.round(relativemousex / pxperind));
 	    return Math.round(relativemousex / pxperind);
 	  },
 	  indToPx: function indToPx(pxperind, ind, marginleft) {

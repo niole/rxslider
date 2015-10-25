@@ -17,7 +17,7 @@ class App extends React.Component {
   }
   render() {
     return <Slider
-            marginleft={0}
+            marginleft={100}
             data={[1,2,3,4,5,6,7,8,9,10]}
             width={600}
             height={5}
